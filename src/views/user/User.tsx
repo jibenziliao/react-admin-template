@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Table, notification, Button, Divider, Modal } from 'antd'
+import { Table, notification, Divider, Modal } from 'antd'
 import { requestFn } from '../../utils/request'
 import { useDispatch } from '../../store/Store'
 import { Dispatch } from 'redux'
@@ -14,6 +14,7 @@ import {
   IParams
 } from '../../components/search/SearchComponent'
 import UserViewModal from './UserViewModal'
+import { ActionBar, IButton } from '../../components/actionBar/ActionBar'
 
 /**
  * 默认用户表单
@@ -48,6 +49,9 @@ const User = () => {
   const dispatch: Dispatch<Actions> = useDispatch()
   const [data, setData] = useState([])
 
+  /**
+   * Table组件参数
+   */
   const columns = [
     {
       title: 'id',
@@ -97,6 +101,18 @@ const User = () => {
           </span>
         </div>
       )
+    }
+  ]
+
+  /**
+   * ActionBar组件参数
+   */
+  const buttons: IButton[] = [
+    {
+      text: '新增',
+      icon: 'plus-circle',
+      disabled: false,
+      onClick: () => addUser()
     }
   ]
 
@@ -206,11 +222,11 @@ const User = () => {
       url: `/v1/users/${id}`,
       method: 'delete'
     })
-    setLoading(false)
     if (res && res.status === 204 && res.data) {
       successTips('删除用户成功')
       setPageParams({ ...pageParams, number: 0, size: 10, name: '' })
     } else {
+      setLoading(false)
       errorTips(
         '删除用户失败',
         res && res.data && res.data.msg ? res.data.msg : '网络异常，请重试！'
@@ -276,11 +292,7 @@ const User = () => {
   return (
     <>
       <SearchComponent onSearch={search} reset={resetList} />
-      <div className={styles.buttonRow}>
-        <Button type="primary" icon="plus-circle" ghost onClick={addUser}>
-          新增
-        </Button>
-      </div>
+      <ActionBar buttons={buttons}/>
       <Table
         columns={columns}
         dataSource={data}
