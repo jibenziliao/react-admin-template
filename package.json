@@ -4,8 +4,10 @@
   "private": true,
   "dependencies": {
     "@babel/core": "7.4.5",
+    "@loadable/component": "^5.10.1",
     "@svgr/webpack": "4.3.0",
     "@types/jest": "24.0.13",
+    "@types/loadable__component": "^5.9.0",
     "@types/node": "12.0.7",
     "@types/qs": "^6.5.3",
     "@types/react": "16.8.19",
@@ -140,6 +142,7 @@
     "eslint-plugin-react-hooks": "^1.6.0",
     "less": "^3.9.0",
     "less-loader": "^5.0.0",
+    "mddir": "^1.1.1",
     "mockjs": "^1.0.1-beta3",
     "redux-devtools-extension": "^2.13.8",
     "tslint-react": "^4.0.0"

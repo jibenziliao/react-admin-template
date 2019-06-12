@@ -1,6 +1,7 @@
-import Home from '../views/home/Home'
-import User from '../views/user/User'
-import UserLog from '../views/logs/userLog/UserLog'
+import loadable from '@loadable/component'
+const Home = loadable(() => import('../views/home/Home'))
+const User = loadable(() => import('../views/user/User'))
+const UserLog = loadable(() => import('../views/logs/userLog/UserLog'))
 
 const routes = [
   {

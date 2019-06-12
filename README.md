@@ -10,11 +10,125 @@
   yarn start
   ```
 
+#### 1. <a href="#环境配置">环境配置</a>
+#### 2. <a href="#相关技术栈">相关技术栈</a>
+#### 3. <a href="#目录说明">目录说明</a>
+#### 4. <a href="#mock说明">mock说明</a>
+#### 5. <a href="#编辑器插件列表">编辑器插件列表</a>
+#### 6. <a href="#编辑器配置">编辑器配置</a>
+#### 7. <a href="#模板说明">模板说明</a>
+
+__ __
+
 ## 环境配置
 
   node > v11.0
 
   yarn
+
+## 相关技术栈
+
+1. [TypeScript中文文档](https://www.tslang.cn/docs/home.html)
+
+2. [TypeScript官方文档](https://www.typescriptlang.org/docs/home.html)
+
+3. [React官方中文文档](https://zh-hans.reactjs.org/docs/getting-started.html)
+
+4. [React官方英文文档](https://reactjs.org/docs/getting-started.html)
+
+5. [ant-design](https://ant.design/docs/react/introduce-cn)
+
+6. [Create React App](https://github.com/facebook/create-react-app)
+
+7. [mockjs文档](https://github.com/nuysoft/Mock/wiki)
+
+8. [Axios](https://github.com/axios/axios)
+
+## 目录说明
+
+    |-- .env,                               // 环境变量配置
+    |-- .eslintignore,
+    |-- .eslintrc.js,
+    |-- .gitignore,
+    |-- README.md,
+    |-- config-overrides.js,
+    |-- package.json,
+    |-- tsconfig.json,
+    |-- tslint.json,
+    |-- yarn.lock,
+    |-- config,                             // webpack相关配置
+    |   |-- env.js,
+    |   |-- paths.js,
+    |   |-- webpack.config.js,
+    |   |-- webpackDevServer.config.js,
+    |   |-- jest,
+    |       |-- cssTransform.js,
+    |       |-- fileTransform.js,
+    |-- doc,                                // 文档
+    |   |-- images,
+    |       |-- 删除.png,
+    |       |-- 查看.png,
+    |       |-- 概览.png,
+    |       |-- 编辑.png,
+    |-- public,
+    |   |-- favicon.ico,
+    |   |-- index.html,
+    |   |-- manifest.json,
+    |-- scripts,
+    |   |-- build.js,
+    |   |-- start.js,
+    |   |-- test.js,
+    |-- src,
+      |-- App.less,
+      |-- App.test.tsx,
+      |-- App.tsx,
+      |-- index.css,
+      |-- index.tsx,
+      |-- react-app-env.d.ts,
+      |-- serviceWorker.ts,
+      |-- components,                       // 组件
+      |   |-- logout,
+      |   |   |-- LogoutButton.tsx,
+      |   |-- search,
+      |       |-- SearchComponent.module.less,
+      |       |-- SearchComponent.tsx,
+      |-- config,                           // 常量配置
+      |   |-- Constant.ts,
+      |-- mock,                             // mock配置
+      |   |-- mock.ts,
+      |   |-- data,
+      |       |-- loginUser.ts,
+      |       |-- user.ts,
+      |-- modal,                            // 实体接口
+      |   |-- loginUser.ts,
+      |   |-- page.ts,
+      |   |-- userForm.ts,
+      |-- routers,                          // 路由
+      |   |-- Router.ts,
+      |-- store,                            // 全局状态管理
+      |   |-- Actions.ts,
+      |   |-- Reducer.ts,
+      |   |-- Store.ts,
+      |-- theme,                            // 全局主题配置
+      |   |-- theme.less,
+      |-- utils,                            // 通用工具
+      |   |-- request.ts,
+      |   |-- util.ts,
+      |-- views,                            // 页面
+          |-- home,
+          |   |-- Home.tsx,
+          |-- login,
+          |   |-- Login.module.less,
+          |   |-- Login.tsx,
+          |-- logs,
+          |   |-- userLog,
+          |       |-- UserLog.tsx,
+          |-- user,
+              |-- User.module.less,
+              |-- User.tsx,
+              |-- UserModal.tsx,
+              |-- UserViewModal.module.less,
+              |-- UserViewModal.tsx,
 
 
 ## mock说明
@@ -32,14 +146,6 @@ Mock.bootstrap()
 [axios-mock-adapter文档](https://github.com/ctimmerm/axios-mock-adapter)
 
 接口代理配置在``package.json``中的``proxy``字段
-
-## ant-design
-
-UI组件来自 [ant-design](https://ant.design/docs/react/introduce-cn)
-
-## create-react-app
-
-基于 [Create React App](https://github.com/facebook/create-react-app)
 
 ## 编辑器插件列表
 
@@ -63,6 +169,8 @@ UI组件来自 [ant-design](https://ant.design/docs/react/introduce-cn)
 * [IntelliSense for CSS class names in HTML](https://marketplace.visualstudio.com/items?itemName=Zignd.html-css-class-completion#review-details)
 
 ## 编辑器配置
+
+使用 [VS Code](https://code.visualstudio.com/) 编辑器
 
 ```json
 // 将设置放入此文件中以覆盖默认设置
@@ -191,3 +299,21 @@ UI组件来自 [ant-design](https://ant.design/docs/react/introduce-cn)
     }
 }
 ```
+
+## 模板说明
+
+常规中后台页面布局如下
+
+![概览][概览]
+
+![概览][查看]
+
+![概览][编辑]
+
+![概览][删除]
+
+[概览]: ./doc/images/概览.png
+[查看]: ./doc/images/查看.png
+[编辑]: ./doc/images/编辑.png
+[删除]: ./doc/images/删除.png
+
