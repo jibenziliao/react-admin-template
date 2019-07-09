@@ -1,4 +1,4 @@
-import axios, { ResponseType, Method, AxiosPromise } from 'axios'
+import axios, { ResponseType, Method, AxiosPromise, AxiosResponse } from 'axios'
 import { API_URL, REQUEST_TIME_OUT } from '../config/Constant'
 import Qs from 'qs'
 import Actions from '../store/Actions'
@@ -17,8 +17,8 @@ let expiredCount = 0
 export interface IParams {
   url: string
   method?: Method
-  params?: object
-  data?: object | any
+  params?: {}
+  data?: {} | string
   responseType?: ResponseType
 }
 
@@ -73,12 +73,19 @@ export const requestFn = (
         if (
           error.response &&
           error.response.status === 401 &&
-          error.response.request.responseURL.indexOf('/v1/login') === -1
+          error.response.config.url.indexOf('/v1/login') === -1
         ) {
           tokenExpired()
           return reject(error)
         } else {
-          return resolve(error)
+          const result: AxiosResponse<any> = {
+            data: error.response.data,
+            status: error.response.status,
+            statusText: error.response.data.msg,
+            headers: error.response.config.headers,
+            config: error.response.config
+          }
+          return resolve(result)
         }
       }
     )

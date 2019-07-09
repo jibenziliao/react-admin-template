@@ -1,18 +1,10 @@
 import Mock from 'mockjs'
-
-interface IUser {
-  key: string
-  id: string
-  name: string
-  birthDay: string
-  city: string
-}
+import { IUser } from '../../modal/user'
 
 const mockUsers = (): IUser[] => {
   const arr = []
-  for (let i = 0; i < 15; i++) {
+  for (let i = 0; i < 10; i++) {
     const mockItem: IUser = Mock.mock({
-      key: Mock.Random.id(),
       id: Mock.Random.id(),
       name: Mock.Random.cname(),
       birthDay: Mock.Random.date('yyyy-MM-dd'),

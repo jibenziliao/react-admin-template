@@ -6,24 +6,31 @@ import { Dispatch } from 'redux'
 import Actions from '../../store/Actions'
 import styles from './Login.module.less'
 import { setStore } from '../../utils/util'
+import { FormComponentProps } from 'antd/lib/form'
+import { RouteComponentProps } from 'react-router-dom'
+import { ValidateFieldsOptions } from 'antd/lib/form/Form'
 
 interface IParams {
   userName: string
   password: string
 }
 
-const LoginForm = (props: any) => {
+interface ILoginFormProps extends FormComponentProps, RouteComponentProps {
+
+}
+
+const LoginForm = (props: ILoginFormProps) => {
   const [loading, setLoading] = useState(false)
   const dispatch: Dispatch<Actions> = useDispatch()
   const { getFieldDecorator, getFieldsValue, validateFields } = props.form
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    validateFields((err: any) => {
-      if (!err) {
+    validateFields((options: ValidateFieldsOptions) => {
+      if (!options) {
         const fieldValue = getFieldsValue(['userName', 'password'])
         setLoading(true)
-        LoginRequest(fieldValue)
+        LoginRequest(fieldValue as IParams)
       }
     })
   }
@@ -50,6 +57,9 @@ const LoginForm = (props: any) => {
     }
   }
 
+  /**
+   * 失败提示信息
+   */
   const errorTips = (message = '', description = '') => {
     notification.error({
       message,
@@ -57,6 +67,9 @@ const LoginForm = (props: any) => {
     })
   }
 
+  /**
+   * 成功提示信息
+   */
   // @ts-ignore
   // eslint-disable-next-line
   const successTips = (message = '', description = '') => {

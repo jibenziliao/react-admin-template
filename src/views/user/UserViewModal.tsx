@@ -1,7 +1,6 @@
-import React from 'react'
-import { Row, Col, Modal, Button } from 'antd'
-import styles from './UserViewModal.module.less'
-import { IUserForm } from '../../modal/userForm'
+import React, { useState, useEffect } from 'react'
+import { Row, Col, Modal, Button, Table } from 'antd'
+import { IUser, IUserProperty } from '../../modal/user'
 
 /**
  * 查看用户模态窗接口
@@ -9,15 +8,72 @@ import { IUserForm } from '../../modal/userForm'
 interface IUserViewModalProps {
   title: string
   visible: boolean
-  property: IUserForm
+  property: IUser
   close: () => void
+}
+
+/**
+ * 查看用户信息模态窗中的字段类型
+ */
+type IPropType = 'id' | 'name' | 'birthDay' | 'city'
+
+/**
+ * 用户信息字段字典
+ */
+const userPropertyDic = {
+  id: 'id',
+  name: '姓名',
+  birthDay: '生日',
+  city: '住址'
 }
 
 /**
  * 查看用户模态窗组件
  */
 const UserViewModal = (props: IUserViewModalProps) => {
-  const handleClick = () => {
+  const [userProps, setUserProps] = useState<IUserProperty[]>([])
+
+  useEffect(() => {
+    /**
+     * 当props.property发生变化时，更新userProps
+     */
+    const initUserProps = (user: IUser) => {
+      const entries: string[][] = Object.entries(user)
+      const newProperties: IUserProperty[] = entries.map((i: string[]) => {
+        return {
+          key: userPropertyDic[i[0] as IPropType],
+          value: i[1]
+        }
+      })
+      setUserProps(newProperties)
+    }
+
+    if (props.visible) {
+      initUserProps(props.property)
+    }
+  }, [props.property, props.visible])
+
+  /**
+   * 预览用户属性列表的列配置columns
+   */
+  const columns = [
+    {
+      title: '属性',
+      dataIndex: 'key',
+      key: 'key',
+      width: 120
+    },
+    {
+      title: '值',
+      dataIndex: 'value',
+      key: 'value'
+    }
+  ]
+
+  /**
+   * 关闭模态窗
+   */
+  const closeModal = () => {
     props.close()
   }
 
@@ -25,7 +81,7 @@ const UserViewModal = (props: IUserViewModalProps) => {
     return (
       <Row>
         <Col>
-          <Button type="primary" onClick={handleClick}>
+          <Button type="primary" onClick={closeModal}>
             确定
           </Button>
         </Col>
@@ -40,30 +96,13 @@ const UserViewModal = (props: IUserViewModalProps) => {
       width={800}
       closable={false}
       footer={renderFooter()}>
-      <Row>
-        <Col span={6} className={styles.label}>
-          id：
-        </Col>
-        <Col span={12}>{props.property.id}</Col>
-      </Row>
-      <Row className={styles.rowItem}>
-        <Col span={6} className={styles.label}>
-          姓名：
-        </Col>
-        <Col span={12}>{props.property.name}</Col>
-      </Row>
-      <Row className={styles.rowItem}>
-        <Col span={6} className={styles.label}>
-          生日：
-        </Col>
-        <Col span={12}>{props.property.birthDay}</Col>
-      </Row>
-      <Row className={styles.rowItem}>
-        <Col span={6} className={styles.label}>
-          住址：
-        </Col>
-        <Col span={12}>{props.property.city}</Col>
-      </Row>
+      <Table
+        bordered
+        columns={columns}
+        dataSource={userProps}
+        pagination={false}
+        size="small"
+      />
     </Modal>
   )
 }

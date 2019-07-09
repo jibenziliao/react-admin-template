@@ -6,7 +6,8 @@ import {
   Link,
   withRouter,
   Switch,
-  Redirect
+  Redirect,
+  RouteComponentProps
 } from 'react-router-dom'
 import routes from './routers/Router'
 import LogoutButton from './components/logout/LogoutButton'
@@ -22,7 +23,17 @@ const SubMenu = Menu.SubMenu
 
 const history = createBrowserHistory()
 
-const CustomSider = (props: any) => {
+/**
+ * 自定义侧边栏接口类型
+ */
+interface ICustomSiderProps extends RouteComponentProps {
+  collapsed: boolean
+}
+
+/**
+ * 自定义侧边栏
+ */
+const CustomSider = (props: ICustomSiderProps) => {
   /**
    * 渲染二级菜单
    */
@@ -82,6 +93,9 @@ const CustomSider = (props: any) => {
   )
 }
 
+/**
+ * 左侧侧边栏
+ */
 const LeftSlider = withRouter(CustomSider)
 
 const HasMenu = () => {

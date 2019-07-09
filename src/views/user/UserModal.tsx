@@ -2,14 +2,15 @@ import React from 'react'
 import { Row, Input, Form, Modal, Button, DatePicker } from 'antd'
 import moment from 'moment'
 import { FormComponentProps } from 'antd/lib/form'
-import { IUserForm } from '../../modal/userForm'
+import { IUser } from '../../modal/user'
+import { ValidateFieldsOptions } from 'antd/lib/form/Form'
 
 interface IUserModalFormProps extends FormComponentProps {
   visible: boolean
   title: string
-  property: IUserForm
+  property: IUser
   cancel: () => void
-  submit: (params: IUserForm) => void
+  submit: (params: IUser) => void
 }
 
 const UserModalForm = (props: IUserModalFormProps) => {
@@ -59,11 +60,11 @@ const UserModalForm = (props: IUserModalFormProps) => {
    * 点击模态窗底部确定按钮
    */
   const handleSubmit = () => {
-    validateFields((err: any) => {
-      if (!err) {
+    validateFields((options: ValidateFieldsOptions) => {
+      if (!options) {
         const fieldValue = getFieldsValue(['name', 'birthDay', 'city'])
         const { name, city, birthDay } = fieldValue
-        const params: IUserForm = {
+        const params: IUser = {
           id: props.property.id,
           name,
           city,

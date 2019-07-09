@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react'
-import { Table, notification, Divider, Modal } from 'antd'
+import { Table, notification, Divider, Popconfirm } from 'antd'
 import { requestFn } from '../../utils/request'
 import { useDispatch } from '../../store/Store'
 import { Dispatch } from 'redux'
 import Actions from '../../store/Actions'
 import UserModal from './UserModal'
-import { IUserForm } from '../../modal/userForm'
+import { IUser, IUserTable } from '../../modal/user'
 import { IPage } from '../../modal/page'
 import moment from 'moment'
 import styles from './User.module.less'
@@ -17,9 +17,24 @@ import UserViewModal from './UserViewModal'
 import { ActionBar, IButton } from '../../components/actionBar/ActionBar'
 
 /**
+ * 列对齐方式类型(与ant-design保持一致)
+ */
+type columnAlignType = 'center' | 'left' | 'right' | undefined
+
+/**
+ * 获取用户列表请求接口类型
+ */
+interface IPageParams {
+  number: number
+  size: number
+  total: number
+  name?: string
+}
+
+/**
  * 默认用户表单
  */
-const defaultUserForm: IUserForm = {
+const defaultUserForm: IUser = {
   id: '',
   name: '',
   birthDay: moment().format('YYYY-MM-DD HH:mm:ss'),
@@ -47,29 +62,38 @@ const User = () => {
   const [viewUserModal, setViewUserModal] = useState(false)
   const [pageParams, setPageParams] = useState(defaultPageParams)
   const dispatch: Dispatch<Actions> = useDispatch()
-  const [data, setData] = useState([])
+  const [data, setData] = useState<IUserTable[]>([])
+
+  /**
+   * 定义列的对齐方式，居中
+   */
+  const columnAlignCenter: columnAlignType = 'center'
 
   /**
    * Table组件参数
    */
   const columns = [
     {
+      title: '序号',
+      dataIndex: 'no',
+      key: 'no',
+      width: 80
+    },
+    {
       title: 'id',
       dataIndex: 'id',
       key: 'id',
-      width: '14%'
+      width: 100
     },
     {
       title: '姓名',
       dataIndex: 'name',
-      key: 'name',
-      width: '14%'
+      key: 'name'
     },
     {
       title: '生日',
       dataIndex: 'birthDay',
-      key: 'birthDay',
-      width: '20%'
+      key: 'birthDay'
     },
     {
       title: '住址',
@@ -80,9 +104,9 @@ const User = () => {
       title: '操作',
       dataIndex: 'action',
       key: 'action',
-      width: '14%',
-      // @ts-ignore
-      render: (text: string, record: any) => (
+      width: 170,
+      align: columnAlignCenter,
+      render: (_: string, record: IUserTable) => (
         <div>
           <span
             className={`${styles.textButton} ${styles.viewButton}`}
@@ -90,15 +114,21 @@ const User = () => {
             查看
           </span>
           <Divider type="vertical" />
-          <span className={`${styles.textButton} ${styles.editButton}`} onClick={() => editUser(record)}>
+          <span
+            className={`${styles.textButton} ${styles.editButton}`}
+            onClick={() => editUser(record)}>
             编辑
           </span>
           <Divider type="vertical" />
-          <span
-            className={`${styles.textButton} ${styles.deleteButton}`}
-            onClick={() => deleteConirm(record)}>
-            删除
-          </span>
+          <Popconfirm
+            title="确定要删除这条记录吗?"
+            onConfirm={() => deleteUser(record.id)}
+            okText="确定"
+            cancelText="取消">
+            <span className={`${styles.textButton} ${styles.deleteButton}`}>
+              删除
+            </span>
+          </Popconfirm>
         </div>
       )
     }
@@ -120,7 +150,7 @@ const User = () => {
     /**
      * 获取用户列表
      */
-    const getUsers = async (param: any) => {
+    const getUsers = async (param: IPageParams) => {
       setLoading(true)
       const res = await requestFn(dispatch, {
         url: '/v1/users',
@@ -133,11 +163,28 @@ const User = () => {
       })
       setLoading(false)
       if (res && res.status === 200 && res.data) {
-        setData(res.data.users)
+        handleUsers(res.data.users, param.number, param.size)
       }
     }
     getUsers(pageParams)
   }, [pageParams, dispatch])
+
+  /**
+   * 处理接口返回的用户数据
+   */
+  const handleUsers = (
+    users: IUser[],
+    pageNumber: number,
+    pageSize: number
+  ) => {
+    const newUsers: IUserTable[] = users.map((i: IUser, index: number) => {
+      return {
+        ...i,
+        no: pageNumber * pageSize + index + 1
+      }
+    })
+    setData(newUsers)
+  }
 
   /**
    * 点击查询
@@ -161,7 +208,7 @@ const User = () => {
   /**
    * 新增/编辑用户请求
    */
-  const saveUsers = async (param: IUserForm) => {
+  const saveUsers = async (param: IUser) => {
     setLoading(true)
     const { id, ...others } = param
     const res = await requestFn(dispatch, {
@@ -186,31 +233,19 @@ const User = () => {
   /**
    * 查看用户
    */
-  const viewUser = (item: IUserForm) => {
-    setUserForm(item)
+  const viewUser = (item: IUserTable) => {
+    const { no, ...user } = item
+    setUserForm(user)
     setViewUserModal(true)
   }
 
   /**
    * 编辑用户
    */
-  const editUser = (item: IUserForm) => {
+  const editUser = (item: IUser) => {
     setUserForm(item)
     setModalTitle('编辑用户')
     setVisible(true)
-  }
-
-  const deleteConirm = (item: IUserForm) => {
-    Modal.confirm({
-      title: '确定要删除这条记录吗?',
-      content: '删除后不可恢复',
-      onOk() {
-        deleteUser(item.id)
-      },
-      onCancel() {
-        // do nothing...
-      }
-    })
   }
 
   /**
@@ -264,7 +299,7 @@ const User = () => {
   /**
    * 新增/编辑用户模态窗，点击确定
    */
-  const handleSubmit = (params: IUserForm) => {
+  const handleSubmit = (params: IUser) => {
     handleCancel()
     saveUsers(params)
   }
@@ -280,8 +315,7 @@ const User = () => {
   /**
    * 列表翻页
    */
-  // @ts-ignore
-  const onPageChange = (pageNumber: number, size: number | undefined) => {
+  const onPageChange = (pageNumber: number, _: number | undefined) => {
     const params = {
       ...pageParams,
       number: pageNumber - 1
@@ -292,8 +326,9 @@ const User = () => {
   return (
     <>
       <SearchComponent onSearch={search} reset={resetList} />
-      <ActionBar buttons={buttons}/>
+      <ActionBar buttons={buttons} />
       <Table
+        bordered
         columns={columns}
         dataSource={data}
         loading={loading}
@@ -306,6 +341,8 @@ const User = () => {
           showTotal: (dataCount) => `共 ${dataCount} 条数据`,
           onChange: onPageChange
         }}
+        size="small"
+        rowKey="id"
       />
       <UserModal
         visible={visible}
