@@ -1,3 +1,6 @@
+/**
+ * redux中actions的类型
+ */
 type Actions =
   | {
       type: 'fetch_begin'

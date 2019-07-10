@@ -10,15 +10,24 @@ import { FormComponentProps } from 'antd/lib/form'
 import { RouteComponentProps } from 'react-router-dom'
 import { ValidateFieldsOptions } from 'antd/lib/form/Form'
 
+/**
+ * 登录表单参数接口类型
+ */
 interface IParams {
   userName: string
   password: string
 }
 
+/**
+ * 登录表单接口类型
+ */
 interface ILoginFormProps extends FormComponentProps, RouteComponentProps {
 
 }
 
+/**
+ * 登录页面表单组件
+ */
 const LoginForm = (props: ILoginFormProps) => {
   const [loading, setLoading] = useState(false)
   const dispatch: Dispatch<Actions> = useDispatch()
@@ -35,6 +44,9 @@ const LoginForm = (props: ILoginFormProps) => {
     })
   }
 
+  /**
+   * 登录请求
+   */
   const LoginRequest = async (fieldValue: IParams) => {
     const res = await requestFn(dispatch, {
       url: '/v1/login',

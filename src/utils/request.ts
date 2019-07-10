@@ -3,7 +3,7 @@ import { API_URL, REQUEST_TIME_OUT } from '../config/Constant'
 import Qs from 'qs'
 import Actions from '../store/Actions'
 import { Dispatch } from 'redux'
-import { setStore, getStore, removeAllStore } from './util'
+import { setStore, getStore, removeAllStore, removeAllLocalStore } from './util'
 import { Modal } from 'antd'
 
 /**
@@ -34,6 +34,7 @@ const tokenExpired = () => {
       okText: '确定',
       onOk: () => {
         removeAllStore()
+        removeAllLocalStore()
         window.location.reload()
       }
     })
