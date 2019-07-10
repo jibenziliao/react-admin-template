@@ -3,16 +3,22 @@ import { Form, Input, Button } from 'antd'
 import { FormComponentProps } from 'antd/lib/form'
 import styles from './SearchComponent.module.less'
 
+/**
+ * 搜索组件onSearch方法参数类型
+ */
 export interface IParams {
   name: string
 }
 
-interface IProps extends FormComponentProps {
+/**
+ * 搜索组件接口
+ */
+interface ISearchProps extends FormComponentProps {
   onSearch: (fieldParams: IParams) => void
   reset: () => void
 }
 
-const FormComponent = (props: IProps) => {
+const FormComponent = (props: ISearchProps) => {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     props.onSearch(fieldParams)
@@ -26,6 +32,9 @@ const FormComponent = (props: IProps) => {
     name: fieldVlue.name || ''
   }
 
+  /**
+   * 重置表单
+   */
   const handleReset = () => {
     resetFields()
     props.reset()
@@ -58,6 +67,6 @@ const FormComponent = (props: IProps) => {
 /**
  * 搜索组件
  */
-export const SearchComponent = Form.create<IProps>({ name: 'FormComponent' })(
+export const SearchComponent = Form.create<ISearchProps>({ name: 'FormComponent' })(
   FormComponent
 )
