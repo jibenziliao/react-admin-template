@@ -1,7 +1,7 @@
 /**
  * 用户接口
  */
-export interface IUser {
+export interface User {
   id: string
   name: string
   birthDay: string
@@ -11,14 +11,14 @@ export interface IUser {
 /**
  * 用户列表接口
  */
-export interface IUserTable extends IUser {
+export interface UserTable extends User {
   no: number
 }
 
 /**
  * 单个用户的属性接口
  */
-export interface IUserProperty {
+export interface UserProperty {
   key: string
   value: string
 }

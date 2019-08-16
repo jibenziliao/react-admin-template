@@ -1,10 +1,10 @@
 import axios, { ResponseType, Method, AxiosPromise, AxiosResponse } from 'axios'
-import { API_URL, REQUEST_TIME_OUT } from '../config/Constant'
 import Qs from 'qs'
-import Actions from '../store/Actions'
 import { Dispatch } from 'redux'
-import { setStore, getStore, removeAllStore, removeAllLocalStore } from './util'
 import { Modal } from 'antd'
+import { API_URL, REQUEST_TIME_OUT } from '../config/Constant'
+import Actions from '../store/Actions'
+import { setStore, getStore, removeAllStore, removeAllLocalStore } from './util'
 
 /**
  * token过期错误提示次数(token过期时，一个页面可能会有多次请求，只显示第一次的错误提示)
@@ -14,7 +14,7 @@ let expiredCount = 0
 /**
  * requestFn参数接口类型
  */
-export interface IParams {
+export interface Params {
   url: string
   method?: Method
   params?: {}
@@ -44,10 +44,7 @@ const tokenExpired = () => {
 /**
  * 通用网络请求
  */
-export const requestFn = (
-  dispatch: Dispatch<Actions>,
-  params: IParams
-): AxiosPromise => {
+export const requestFn = (dispatch: Dispatch<Actions>, params: Params): AxiosPromise => {
   return new Promise((resolve, reject) => {
     dispatch({
       type: 'fetch_begin',
@@ -56,37 +53,39 @@ export const requestFn = (
       }
     })
     axios.interceptors.response.use(
-      (response) => {
-        if (
-          response &&
-          response.status === 200 &&
-          response.data &&
-          response.data.token
-        ) {
-          axios.defaults.headers.common.Authorization = `Bearer ${
-            response.data.token
-          }`
+      response => {
+        if (response && response.status === 200 && response.data && response.data.token) {
+          axios.defaults.headers.common.Authorization = `Bearer ${response.data.token}`
           setStore('token', response.data.token)
         }
         return response
       },
-      (error) => {
-        if (
-          error.response &&
-          error.response.status === 401 &&
-          error.response.config.url.indexOf('/v1/login') === -1
-        ) {
+      error => {
+        if (error.response && error.response.status === 401 && error.response.config.url.indexOf('/v1/login') === -1) {
           tokenExpired()
           return reject(error)
         } else {
-          const result: AxiosResponse<any> = {
-            data: error.response.data,
-            status: error.response.status,
-            statusText: error.response.data.msg,
-            headers: error.response.config.headers,
-            config: error.response.config
+          if (error.message.includes('timeout')) {
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            const result: AxiosResponse<any> = {
+              data: { msg: '请求超时' },
+              status: 408,
+              statusText: '请求超时',
+              headers: error.config.headers,
+              config: error.config
+            }
+            return resolve(result)
+          } else {
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            const result: AxiosResponse<any> = {
+              data: error.response && error.response.data ? error.response.data : null,
+              status: error.response && error.response.status ? error.response.status : 500,
+              statusText: error.message,
+              headers: error.config.headers,
+              config: error.config
+            }
+            return resolve(result)
           }
-          return resolve(result)
         }
       }
     )
@@ -96,19 +95,15 @@ export const requestFn = (
         method: params.method || 'get',
         baseURL: `${API_URL}/api`,
         params: params.params || {},
-        paramsSerializer: (arg) => {
+        paramsSerializer: arg => {
           // https://github.com/ljharb/qs
           // https://blog.csdn.net/pifutan/article/details/86320705
           return Qs.stringify(arg, { arrayFormat: 'repeat' })
         },
         headers: {
-          ...(getStore('token')
-            ? { Authorization: `Bearer ${getStore('token')}` }
-            : {}),
+          ...(getStore('token') ? { Authorization: `Bearer ${getStore('token')}` } : {}),
           // 某些请求data直接是数组或字符串，这里需要改变Content-Type值
-          ...(params.data && typeof params.data === 'string'
-            ? { 'Content-Type': 'text/uri-list' }
-            : {})
+          ...(params.data && typeof params.data === 'string' ? { 'Content-Type': 'text/uri-list' } : {})
         },
         data:
           params.data && typeof params.data === 'string'
@@ -117,13 +112,14 @@ export const requestFn = (
                 ...(params.data || {})
               },
         timeout: REQUEST_TIME_OUT,
-        validateStatus: (status) => {
+        validateStatus: status => {
           // 除了401错误，所有响应码都接受，每个请求错误单独处理。
           return status !== 401
         },
-        responseType: params.responseType || 'json'
+        responseType: params.responseType || 'json',
+        withCredentials: true
       })
-      .then((res) => {
+      .then(res => {
         dispatch({
           type: 'fetch_success',
           payload: {
@@ -133,7 +129,7 @@ export const requestFn = (
         })
         resolve(res)
       })
-      .catch((err) => {
+      .catch(err => {
         dispatch({
           type: 'fetch_failed',
           payload: {

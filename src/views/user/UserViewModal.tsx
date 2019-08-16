@@ -1,21 +1,21 @@
 import React, { useState, useEffect } from 'react'
 import { Row, Col, Modal, Button, Table } from 'antd'
-import { IUser, IUserProperty } from '../../modal/user'
+import { User, UserProperty } from '../../modal/user'
 
 /**
  * 查看用户模态窗接口
  */
-interface IUserViewModalProps {
+interface UserViewModalProps {
   title: string
   visible: boolean
-  property: IUser
+  property: User
   close: () => void
 }
 
 /**
  * 查看用户信息模态窗中的字段类型
  */
-type IPropType = 'id' | 'name' | 'birthDay' | 'city'
+type PropType = 'id' | 'name' | 'birthDay' | 'city'
 
 /**
  * 用户信息字段字典
@@ -30,18 +30,18 @@ const userPropertyDic = {
 /**
  * 查看用户模态窗组件
  */
-const UserViewModal = (props: IUserViewModalProps) => {
-  const [userProps, setUserProps] = useState<IUserProperty[]>([])
+const UserViewModal = (props: UserViewModalProps) => {
+  const [userProps, setUserProps] = useState<UserProperty[]>([])
 
   useEffect(() => {
     /**
      * 当props.property发生变化时，更新userProps
      */
-    const initUserProps = (user: IUser) => {
+    const initUserProps = (user: User) => {
       const entries: string[][] = Object.entries(user)
-      const newProperties: IUserProperty[] = entries.map((i: string[]) => {
+      const newProperties: UserProperty[] = entries.map((i: string[]) => {
         return {
-          key: userPropertyDic[i[0] as IPropType],
+          key: userPropertyDic[i[0] as PropType],
           value: i[1]
         }
       })
@@ -90,19 +90,8 @@ const UserViewModal = (props: IUserViewModalProps) => {
   }
 
   return (
-    <Modal
-      title={props.title}
-      visible={props.visible}
-      width={800}
-      closable={false}
-      footer={renderFooter()}>
-      <Table
-        bordered
-        columns={columns}
-        dataSource={userProps}
-        pagination={false}
-        size="small"
-      />
+    <Modal title={props.title} visible={props.visible} width={800} closable={false} footer={renderFooter()}>
+      <Table bordered columns={columns} dataSource={userProps} pagination={false} size="small" />
     </Modal>
   )
 }
