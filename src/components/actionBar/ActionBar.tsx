@@ -5,7 +5,7 @@ import styles from './ActionBar.module.less'
 /**
  * ActionBar组件参数接口
  */
-export interface IButton {
+export interface ButtonProps {
   icon: string
   text: string
   disabled: boolean
@@ -15,27 +15,21 @@ export interface IButton {
 /**
  * ActionBar组件参数接口
  */
-interface IProps {
-  buttons: IButton[]
+interface Props {
+  buttons: ButtonProps[]
 }
 
 /**
  * 操作栏组件
  */
-const ActionBar = (props: IProps) => {
+const ActionBar = (props: Props) => {
   /**
    * 渲染操作栏按钮组
    */
   const renderButtons = () => {
-    return props.buttons.map((i: IButton, index: number) => {
+    return props.buttons.map((i: ButtonProps, index: number) => {
       return (
-        <Button
-          key={index}
-          type="primary"
-          ghost
-          disabled={i.disabled}
-          icon={i.icon}
-          onClick={i.onClick}>
+        <Button key={index} type="primary" ghost disabled={i.disabled} icon={i.icon} onClick={i.onClick}>
           {i.text}
         </Button>
       )

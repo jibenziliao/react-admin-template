@@ -1,10 +1,5 @@
 {
   "compilerOptions": {
-    "plugins": [
-      {"name": "tslint-language-service"}
-    ],
-    "noUnusedLocals": true,
-    "noUnusedParameters": true,
     "target": "es5",
     "lib": [
       "dom",

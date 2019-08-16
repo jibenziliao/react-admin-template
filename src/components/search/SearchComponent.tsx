@@ -6,19 +6,19 @@ import styles from './SearchComponent.module.less'
 /**
  * 搜索组件onSearch方法参数类型
  */
-export interface IParams {
+export interface Params {
   name: string
 }
 
 /**
  * 搜索组件接口
  */
-interface ISearchProps extends FormComponentProps {
-  onSearch: (fieldParams: IParams) => void
+interface SearchProps extends FormComponentProps {
+  onSearch: (fieldParams: Params) => void
   reset: () => void
 }
 
-const FormComponent = (props: ISearchProps) => {
+const FormComponent = (props: SearchProps) => {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     props.onSearch(fieldParams)
@@ -43,19 +43,12 @@ const FormComponent = (props: ISearchProps) => {
   return (
     <>
       <Form layout="inline" onSubmit={handleSubmit}>
-        <Form.Item>
-          {getFieldDecorator('name', {})(
-            <Input placeholder="请输入姓名" allowClear />
-          )}
-        </Form.Item>
+        <Form.Item>{getFieldDecorator('name', {})(<Input placeholder="请输入姓名" allowClear />)}</Form.Item>
         <Form.Item>
           <Button type="primary" htmlType="submit">
             查询
           </Button>
-          <Button
-            className={styles.resetButotn}
-            htmlType="reset"
-            onClick={handleReset}>
+          <Button className={styles.resetButotn} htmlType="reset" onClick={handleReset}>
             重置
           </Button>
         </Form.Item>
@@ -67,6 +60,4 @@ const FormComponent = (props: ISearchProps) => {
 /**
  * 搜索组件
  */
-export const SearchComponent = Form.create<ISearchProps>({ name: 'FormComponent' })(
-  FormComponent
-)
+export const SearchComponent = Form.create<SearchProps>({ name: 'FormComponent' })(FormComponent)

@@ -1,9 +1,9 @@
-import { ILoginUser } from '../../modal/loginUser'
+import { LoginUser } from '../../modal/loginUser'
 
 /**
  * 模拟登录用户
  */
-const loginUser: ILoginUser[] = [
+const loginUser: LoginUser[] = [
   {
     id: 1,
     name: 'admin',

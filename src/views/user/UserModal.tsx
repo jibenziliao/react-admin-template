@@ -1,25 +1,20 @@
 import React from 'react'
 import { Row, Input, Form, Modal, Button, DatePicker } from 'antd'
 import moment from 'moment'
-import { FormComponentProps } from 'antd/lib/form'
-import { IUser } from '../../modal/user'
 import { ValidateFieldsOptions } from 'antd/lib/form/Form'
+import { FormComponentProps } from 'antd/lib/form'
+import { User } from '../../modal/user'
 
-interface IUserModalFormProps extends FormComponentProps {
+interface UserModalFormProps extends FormComponentProps {
   visible: boolean
   title: string
-  property: IUser
+  property: User
   cancel: () => void
-  submit: (params: IUser) => void
+  submit: (params: User) => void
 }
 
-const UserModalForm = (props: IUserModalFormProps) => {
-  const {
-    getFieldDecorator,
-    getFieldsValue,
-    resetFields,
-    validateFields
-  } = props.form
+const UserModalForm = (props: UserModalFormProps) => {
+  const { getFieldDecorator, getFieldsValue, resetFields, validateFields } = props.form
 
   const formItemLayout = {
     labelCol: {
@@ -64,7 +59,7 @@ const UserModalForm = (props: IUserModalFormProps) => {
       if (!options) {
         const fieldValue = getFieldsValue(['name', 'birthDay', 'city'])
         const { name, city, birthDay } = fieldValue
-        const params: IUser = {
+        const params: User = {
           id: props.property.id,
           name,
           city,
@@ -77,12 +72,7 @@ const UserModalForm = (props: IUserModalFormProps) => {
 
   return (
     <>
-      <Modal
-        title={props.title}
-        visible={props.visible}
-        width={800}
-        closable={false}
-        footer={renderFooter()}>
+      <Modal title={props.title} visible={props.visible} width={800} closable={false} footer={renderFooter()}>
         <Form {...formItemLayout}>
           <Form.Item label="姓名" required>
             {getFieldDecorator('name', {
@@ -93,13 +83,8 @@ const UserModalForm = (props: IUserModalFormProps) => {
           <Form.Item label="生日" required>
             {getFieldDecorator('birthDay', {
               rules: [{ required: true, message: '请选择生日' }],
-              initialValue: moment(
-                props.property.birthDay,
-                'YYYY-MM-DD HH:mm:ss'
-              )
-            })(
-              <DatePicker style={{ width: '100%' }} placeholder="请选择生日" />
-            )}
+              initialValue: moment(props.property.birthDay, 'YYYY-MM-DD HH:mm:ss')
+            })(<DatePicker style={{ width: '100%' }} placeholder="请选择生日" />)}
           </Form.Item>
           <Form.Item label="住址" required>
             {getFieldDecorator('city', {
@@ -116,8 +101,6 @@ const UserModalForm = (props: IUserModalFormProps) => {
 /**
  * 用户模态窗
  */
-const UserModal = Form.create<IUserModalFormProps>({ name: 'UserModalForm' })(
-  UserModalForm
-)
+const UserModal = Form.create<UserModalFormProps>({ name: 'UserModalForm' })(UserModalForm)
 
 export default UserModal

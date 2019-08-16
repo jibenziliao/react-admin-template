@@ -1,15 +1,14 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import './index.css'
-import App from './App'
-import { makeStore, StoreContext } from './store/Store'
-import * as serviceWorker from './serviceWorker'
-import { LocaleProvider } from 'antd'
-import zh_CN from 'antd/lib/locale-provider/zh_CN'
+import { ConfigProvider } from 'antd'
+import zhCN from 'antd/es/locale/zh_CN'
 import moment from 'moment'
-// tslint:disable-next-line:no-import-side-effect
 import 'moment/locale/zh-cn'
+import { makeStore, StoreContext } from './store/Store'
+import App from './App'
+import './index.css'
 import Mock from './mock/mock'
+import * as serviceWorker from './serviceWorker'
 
 moment.locale('zh-cn')
 // mock请求启动，若有接口，可注释此行。请求代理在package.json中proxy字段
@@ -19,9 +18,9 @@ const store = makeStore()
 
 ReactDOM.render(
   <StoreContext.Provider value={store}>
-    <LocaleProvider locale={zh_CN}>
+    <ConfigProvider locale={zhCN}>
       <App />
-    </LocaleProvider>
+    </ConfigProvider>
   </StoreContext.Provider>,
   document.getElementById('root')
 )
