@@ -1,6 +1,4 @@
-/**
- * 存储sessionStorage
- */
+/** 存储sessionStorage */
 export const setStore = (name: string, content: string | {} | []) => {
   if (!name) {
     return false
@@ -14,9 +12,7 @@ export const setStore = (name: string, content: string | {} | []) => {
   window.sessionStorage.setItem(name, param)
 }
 
-/**
- * 获取sessionStorage
- */
+/** 获取sessionStorage */
 export const getStore = (name: string) => {
   if (!name) {
     return false
@@ -29,9 +25,7 @@ export const getStore = (name: string) => {
   }
 }
 
-/**
- * 删除sessionStorage
- */
+/** 删除sessionStorage */
 export const removeStore = (name: string) => {
   if (!name) {
     return false
@@ -39,16 +33,12 @@ export const removeStore = (name: string) => {
   window.sessionStorage.removeItem(name)
 }
 
-/**
- * 删除所有的sessionStorage
- */
+/** 删除所有的sessionStorage */
 export const removeAllStore = () => {
   window.sessionStorage.clear()
 }
 
-/**
- * 存储localStorage
- */
+/** 存储localStorage */
 export const setLocalStore = (name: string, content: string | {} | []) => {
   if (!name) {
     return false
@@ -62,9 +52,7 @@ export const setLocalStore = (name: string, content: string | {} | []) => {
   window.localStorage.setItem(name, param)
 }
 
-/**
- * 获取localStorage
- */
+/** 获取localStorage */
 export const getLocalStore = (name: string) => {
   if (!name) {
     return false
@@ -77,9 +65,7 @@ export const getLocalStore = (name: string) => {
   }
 }
 
-/**
- * 删除localStorage
- */
+/** 删除localStorage */
 export const removeLocalStore = (name: string) => {
   if (!name) {
     return false
@@ -87,16 +73,12 @@ export const removeLocalStore = (name: string) => {
   window.localStorage.removeItem(name)
 }
 
-/**
- * 删除所有的localStorage
- */
+/** 删除所有的localStorage */
 export const removeAllLocalStore = () => {
   window.localStorage.clear()
 }
 
-/**
- * 获取url中的参数
- */
+/** 获取url中的参数 */
 export const getUrlParam = (name: string) => {
   const reg = new RegExp('(^|&)' + name + '=([^&]*)(&|$)')
   const param = window.location.search.substr(1).match(reg)
@@ -105,4 +87,13 @@ export const getUrlParam = (name: string) => {
   } else {
     return null
   }
+}
+
+/** 生成一个永不重复的id */
+export const genNonDuplicateID = (randomLength: number) => {
+  return Number(
+    Math.random()
+      .toString()
+      .substr(3, randomLength) + Date.now()
+  ).toString(36)
 }

@@ -18,9 +18,7 @@ import { ActionBar, ButtonProps } from '../../components/actionBar/ActionBar'
  */
 type columnAlignType = 'center' | 'left' | 'right' | undefined
 
-/**
- * 获取用户列表请求接口类型
- */
+/** 获取用户列表请求接口类型 */
 interface PageParams {
   number: number
   size: number
@@ -28,9 +26,7 @@ interface PageParams {
   name?: string
 }
 
-/**
- * 默认用户表单
- */
+/** 默认用户表单 */
 const defaultUserForm: UserProps = {
   id: '',
   name: '',
@@ -38,9 +34,7 @@ const defaultUserForm: UserProps = {
   city: ''
 }
 
-/**
- * 默认页面参数
- */
+/** 默认页面参数 */
 const defaultPageParams: Page = {
   number: 0,
   size: 10,
@@ -48,9 +42,7 @@ const defaultPageParams: Page = {
   name: ''
 }
 
-/**
- * 用户管理页面
- */
+/** 用户管理页面 */
 const User = () => {
   const [loading, setLoading] = useState(false)
   const [visible, setVisible] = useState(false)
@@ -61,14 +53,10 @@ const User = () => {
   const dispatch: Dispatch<Actions> = useDispatch()
   const [data, setData] = useState<UserTable[]>([])
 
-  /**
-   * 定义列的对齐方式，居中
-   */
+  /** 定义列的对齐方式，居中 */
   const columnAlignCenter: columnAlignType = 'center'
 
-  /**
-   * Table组件参数
-   */
+  /** Table组件参数 */
   const columns = [
     {
       title: '序号',
@@ -126,9 +114,7 @@ const User = () => {
     }
   ]
 
-  /**
-   * ActionBar组件参数
-   */
+  /** ActionBar组件参数 */
   const buttons: ButtonProps[] = [
     {
       text: '新增',
@@ -139,9 +125,7 @@ const User = () => {
   ]
 
   useEffect(() => {
-    /**
-     * 获取用户列表
-     */
+    /** 获取用户列表 */
     const getUsers = async (param: PageParams) => {
       setLoading(true)
       const res = await requestFn(dispatch, {
@@ -161,9 +145,7 @@ const User = () => {
     getUsers(pageParams)
   }, [pageParams, dispatch])
 
-  /**
-   * 处理接口返回的用户数据
-   */
+  /** 处理接口返回的用户数据 */
   const handleUsers = (users: UserProps[], pageNumber: number, pageSize: number) => {
     const newUsers: UserTable[] = users.map((i: UserProps, index: number) => {
       return {
@@ -174,9 +156,7 @@ const User = () => {
     setData(newUsers)
   }
 
-  /**
-   * 点击查询
-   */
+  /** 点击查询 */
   const search = (searchParams: Params) => {
     setPageParams({
       ...pageParams,
@@ -186,16 +166,12 @@ const User = () => {
     })
   }
 
-  /**
-   * 重置搜索(重置搜索条件、页码)
-   */
+  /** 重置搜索(重置搜索条件、页码) */
   const resetList = () => {
     setPageParams(defaultPageParams)
   }
 
-  /**
-   * 新增/编辑用户请求
-   */
+  /** 新增/编辑用户请求 */
   const saveUsers = async (param: UserProps) => {
     setLoading(true)
     const { id, ...others } = param
@@ -218,27 +194,21 @@ const User = () => {
     }
   }
 
-  /**
-   * 查看用户
-   */
+  /** 查看用户 */
   const viewUser = (item: UserTable) => {
     const { no, ...user } = item
     setUserForm(user)
     setViewUserModal(true)
   }
 
-  /**
-   * 编辑用户
-   */
+  /** 编辑用户 */
   const editUser = (item: UserProps) => {
     setUserForm(item)
     setModalTitle('编辑用户')
     setVisible(true)
   }
 
-  /**
-   * 删除用户请求
-   */
+  /** 删除用户请求 */
   const deleteUser = async (id: string) => {
     setLoading(true)
     const res = await requestFn(dispatch, {
@@ -254,9 +224,7 @@ const User = () => {
     }
   }
 
-  /**
-   * 失败提示
-   */
+  /** 失败提示 */
   const errorTips = (message = '', description = '') => {
     notification.error({
       message,
@@ -264,9 +232,7 @@ const User = () => {
     })
   }
 
-  /**
-   * 成功提示
-   */
+  /** 成功提示 */
   const successTips = (message = '', description = '') => {
     notification.success({
       message,
@@ -274,32 +240,24 @@ const User = () => {
     })
   }
 
-  /**
-   * 编辑用户模态窗点击取消
-   */
+  /** 编辑用户模态窗点击取消 */
   const handleCancel = () => {
     setVisible(false)
   }
 
-  /**
-   * 新增/编辑用户模态窗，点击确定
-   */
+  /** 新增/编辑用户模态窗，点击确定 */
   const handleSubmit = (params: UserProps) => {
     handleCancel()
     saveUsers(params)
   }
 
-  /**
-   * 新增用户
-   */
+  /** 新增用户 */
   const addUser = () => {
     setUserForm(defaultUserForm)
     setVisible(true)
   }
 
-  /**
-   * 列表翻页
-   */
+  /** 列表翻页 */
   const onPageChange = (pageNumber: number, _: number | undefined) => {
     const params = {
       ...pageParams,

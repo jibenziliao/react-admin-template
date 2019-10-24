@@ -10,22 +10,16 @@ import Actions from '../../store/Actions'
 import styles from './Login.module.less'
 import { setStore } from '../../utils/util'
 
-/**
- * 登录表单参数接口类型
- */
+/** 登录表单参数接口类型 */
 interface Params {
   userName: string
   password: string
 }
 
-/**
- * 登录表单接口类型
- */
+/** 登录表单接口类型 */
 interface LoginFormProps extends FormComponentProps, RouteComponentProps {}
 
-/**
- * 登录页面表单组件
- */
+/** 登录页面表单组件 */
 const LoginForm = (props: LoginFormProps) => {
   const [loading, setLoading] = useState(false)
   const dispatch: Dispatch<Actions> = useDispatch()
@@ -42,9 +36,7 @@ const LoginForm = (props: LoginFormProps) => {
     })
   }
 
-  /**
-   * 登录请求
-   */
+  /** 登录请求 */
   const LoginRequest = async (fieldValue: Params) => {
     const res = await requestFn(dispatch, {
       url: '/v1/login',
@@ -64,9 +56,7 @@ const LoginForm = (props: LoginFormProps) => {
     }
   }
 
-  /**
-   * 失败提示信息
-   */
+  /** 失败提示信息 */
   const errorTips = (message = '', description = '') => {
     notification.error({
       message,
@@ -74,11 +64,8 @@ const LoginForm = (props: LoginFormProps) => {
     })
   }
 
-  /**
-   * 成功提示信息
-   */
+  /** 成功提示信息 */
   // @ts-ignore
-  // eslint-disable-next-line
   const successTips = (message = '', description = '') => {
     notification.success({
       message,
@@ -123,6 +110,7 @@ const LoginForm = (props: LoginFormProps) => {
   )
 }
 
+/** 登录页面 */
 const Login = Form.create({ name: 'LoginForm' })(LoginForm)
 
 export default Login

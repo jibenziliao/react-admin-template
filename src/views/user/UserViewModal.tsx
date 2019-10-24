@@ -2,9 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { Row, Col, Modal, Button, Table } from 'antd'
 import { User, UserProperty } from '../../modal/user'
 
-/**
- * 查看用户模态窗接口
- */
+/** 查看用户模态窗接口 */
 interface UserViewModalProps {
   title: string
   visible: boolean
@@ -12,14 +10,10 @@ interface UserViewModalProps {
   close: () => void
 }
 
-/**
- * 查看用户信息模态窗中的字段类型
- */
+/** 查看用户信息模态窗中的字段类型 */
 type PropType = 'id' | 'name' | 'birthDay' | 'city'
 
-/**
- * 用户信息字段字典
- */
+/** 用户信息字段字典 */
 const userPropertyDic = {
   id: 'id',
   name: '姓名',
@@ -27,16 +21,12 @@ const userPropertyDic = {
   city: '住址'
 }
 
-/**
- * 查看用户模态窗组件
- */
+/** 查看用户模态窗组件 */
 const UserViewModal = (props: UserViewModalProps) => {
   const [userProps, setUserProps] = useState<UserProperty[]>([])
 
   useEffect(() => {
-    /**
-     * 当props.property发生变化时，更新userProps
-     */
+    /** 当props.property发生变化时，更新userProps */
     const initUserProps = (user: User) => {
       const entries: string[][] = Object.entries(user)
       const newProperties: UserProperty[] = entries.map((i: string[]) => {
@@ -53,9 +43,7 @@ const UserViewModal = (props: UserViewModalProps) => {
     }
   }, [props.property, props.visible])
 
-  /**
-   * 预览用户属性列表的列配置columns
-   */
+  /** 预览用户属性列表的列配置columns */
   const columns = [
     {
       title: '属性',
@@ -70,13 +58,12 @@ const UserViewModal = (props: UserViewModalProps) => {
     }
   ]
 
-  /**
-   * 关闭模态窗
-   */
+  /** 关闭模态窗 */
   const closeModal = () => {
     props.close()
   }
 
+  /** 渲染底部按钮 */
   const renderFooter = () => {
     return (
       <Row>

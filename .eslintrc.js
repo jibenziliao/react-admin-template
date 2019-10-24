@@ -31,11 +31,12 @@ module.exports = {
     'prettier/prettier': ['error', { singleQuote: true }],
     'react-hooks/rules-of-hooks': 'error',
     'react-hooks/exhaustive-deps': 'warn',
-    '@typescript-eslint/explicit-member-accessibility': 'off',
-    '@typescript-eslint/explicit-function-return-type': 'off',
-    '@typescript-eslint/no-use-before-define': 'off',
-    '@typescript-eslint/no-object-literal-type-assertion': 'off',
-    '@typescript-eslint/no-parameter-properties': 'off',
+    '@typescript-eslint/explicit-member-accessibility': 0,
+    '@typescript-eslint/explicit-function-return-type': 0,
+    '@typescript-eslint/no-use-before-define': 0,
+    '@typescript-eslint/no-object-literal-type-assertion': 0,
+    '@typescript-eslint/no-parameter-properties': 0,
+    "@typescript-eslint/consistent-type-assertions": 0,
     'no-console': 0
   },
   globals: {
