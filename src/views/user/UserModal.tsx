@@ -5,6 +5,7 @@ import { ValidateFieldsOptions } from 'antd/lib/form/Form'
 import { FormComponentProps } from 'antd/lib/form'
 import { User } from '../../modal/user'
 
+/** 用户模态窗表单组件接口类型 */
 interface UserModalFormProps extends FormComponentProps {
   visible: boolean
   title: string
@@ -13,6 +14,7 @@ interface UserModalFormProps extends FormComponentProps {
   submit: (params: User) => void
 }
 
+/** 用户模态窗表单组件 */
 const UserModalForm = (props: UserModalFormProps) => {
   const { getFieldDecorator, getFieldsValue, resetFields, validateFields } = props.form
 
@@ -27,9 +29,7 @@ const UserModalForm = (props: UserModalFormProps) => {
     }
   }
 
-  /**
-   * 渲染模态窗底部按钮
-   */
+  /** 渲染模态窗底部按钮 */
   const renderFooter = () => {
     return (
       <Row>
@@ -43,17 +43,13 @@ const UserModalForm = (props: UserModalFormProps) => {
     )
   }
 
-  /**
-   * 点击模态窗底部取消按钮
-   */
+  /** 点击模态窗底部取消按钮 */
   const handleCancel = () => {
     resetFields()
     props.cancel()
   }
 
-  /**
-   * 点击模态窗底部确定按钮
-   */
+  /** 点击模态窗底部确定按钮 */
   const handleSubmit = () => {
     validateFields((options: ValidateFieldsOptions) => {
       if (!options) {
@@ -98,9 +94,7 @@ const UserModalForm = (props: UserModalFormProps) => {
   )
 }
 
-/**
- * 用户模态窗
- */
+/** 用户模态窗 */
 const UserModal = Form.create<UserModalFormProps>({ name: 'UserModalForm' })(UserModalForm)
 
 export default UserModal
