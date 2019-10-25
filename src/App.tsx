@@ -14,20 +14,14 @@ const SubMenu = Menu.SubMenu
 
 const history = createBrowserHistory()
 
-/**
- * 自定义侧边栏接口类型
- */
+/** 自定义侧边栏接口类型 */
 interface CustomSiderProps extends RouteComponentProps {
   collapsed: boolean
 }
 
-/**
- * 自定义侧边栏
- */
+/** 自定义侧边栏 */
 const CustomSider = (props: CustomSiderProps) => {
-  /**
-   * 渲染二级菜单
-   */
+  /** 渲染二级菜单 */
   const renderSubmenu = () => {
     return routes.map(router => {
       if (!router.hidden && router.hasMenu) {
@@ -86,9 +80,7 @@ const CustomSider = (props: CustomSiderProps) => {
   )
 }
 
-/**
- * 左侧侧边栏
- */
+/** 左侧侧边栏 */
 const LeftSlider = withRouter(CustomSider)
 
 const HasMenu = () => {
@@ -100,9 +92,7 @@ const HasMenu = () => {
 
   const token = getStore('token')
 
-  /**
-   * 渲染页面主体内容,缓存中无token,则跳转登录页
-   */
+  /** 渲染页面主体内容,缓存中无token,则跳转登录页 */
   const renderContent = () => {
     return routes.map(router => {
       if (!router.hidden) {

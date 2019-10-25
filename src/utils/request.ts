@@ -6,14 +6,10 @@ import { API_URL, REQUEST_TIME_OUT } from '../config/Constant'
 import Actions from '../store/Actions'
 import { setStore, getStore, removeAllStore, removeAllLocalStore } from './util'
 
-/**
- * token过期错误提示次数(token过期时，一个页面可能会有多次请求，只显示第一次的错误提示)
- */
+/** token过期错误提示次数(token过期时，一个页面可能会有多次请求，只显示第一次的错误提示) */
 let expiredCount = 0
 
-/**
- * requestFn参数接口类型
- */
+/** requestFn参数接口类型 */
 export interface Params {
   url: string
   method?: Method
@@ -22,9 +18,7 @@ export interface Params {
   responseType?: ResponseType
 }
 
-/**
- * token过期处理
- */
+/** token过期处理 */
 const tokenExpired = () => {
   if (!expiredCount) {
     expiredCount += 1
@@ -41,9 +35,7 @@ const tokenExpired = () => {
   }
 }
 
-/**
- * 通用网络请求
- */
+/** 通用网络请求 */
 export const requestFn = (dispatch: Dispatch<Actions>, params: Params): AxiosPromise => {
   return new Promise((resolve, reject) => {
     dispatch({

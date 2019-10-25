@@ -65,7 +65,7 @@ const LoginForm = (props: LoginFormProps) => {
   }
 
   /** 成功提示信息 */
-  // @ts-ignore
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const successTips = (message = '', description = '') => {
     notification.success({
       message,

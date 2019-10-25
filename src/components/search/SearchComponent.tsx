@@ -3,16 +3,12 @@ import { Form, Input, Button } from 'antd'
 import { FormComponentProps } from 'antd/lib/form'
 import styles from './SearchComponent.module.less'
 
-/**
- * 搜索组件onSearch方法参数类型
- */
+/** 搜索组件onSearch方法参数类型 */
 export interface Params {
   name: string
 }
 
-/**
- * 搜索组件接口
- */
+/** 搜索组件接口 */
 interface SearchProps extends FormComponentProps {
   onSearch: (fieldParams: Params) => void
   reset: () => void
@@ -32,9 +28,7 @@ const FormComponent = (props: SearchProps) => {
     name: fieldVlue.name || ''
   }
 
-  /**
-   * 重置表单
-   */
+  /** 重置表单 */
   const handleReset = () => {
     resetFields()
     props.reset()
