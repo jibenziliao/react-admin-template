@@ -13,9 +13,7 @@ const Logout = (props: RouteComponentProps) => {
   return <Button onClick={handleLogout}>退出登录</Button>
 }
 
-/**
- * 注销按钮
- */
+/** 注销按钮 */
 const LogoutButton = withRouter(Logout)
 
 export default LogoutButton

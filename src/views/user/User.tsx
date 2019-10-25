@@ -13,9 +13,7 @@ import { SearchComponent, Params } from '../../components/search/SearchComponent
 import UserViewModal from './UserViewModal'
 import { ActionBar, ButtonProps } from '../../components/actionBar/ActionBar'
 
-/**
- * 列对齐方式类型(与ant-design保持一致)
- */
+/** 列对齐方式类型(与ant-design保持一致) */
 type columnAlignType = 'center' | 'left' | 'right' | undefined
 
 /** 获取用户列表请求接口类型 */

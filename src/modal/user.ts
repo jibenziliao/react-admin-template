@@ -1,6 +1,4 @@
-/**
- * 用户接口
- */
+/** 用户接口 */
 export interface User {
   id: string
   name: string
@@ -8,16 +6,12 @@ export interface User {
   city: string
 }
 
-/**
- * 用户列表接口
- */
+/** 用户列表接口 */
 export interface UserTable extends User {
   no: number
 }
 
-/**
- * 单个用户的属性接口
- */
+/** 单个用户的属性接口 */
 export interface UserProperty {
   key: string
   value: string

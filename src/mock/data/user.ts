@@ -1,9 +1,7 @@
 import Mock from 'mockjs'
 import { User as UserProps } from '../../modal/user'
 
-/**
- * mock用户列表
- */
+/** mock用户列表 */
 const mockUsers = (): UserProps[] => {
   const arr = []
   for (let i = 0; i < 10; i++) {
@@ -18,9 +16,7 @@ const mockUsers = (): UserProps[] => {
   return arr
 }
 
-/**
- * mock出的用户
- */
+/** mock出的用户 */
 const users = mockUsers()
 
 export { users }
