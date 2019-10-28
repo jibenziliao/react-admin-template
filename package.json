@@ -1,6 +1,6 @@
 {
   "name": "ichangyun-fontend-template",
-  "version": "0.3.2",
+  "version": "0.3.3",
   "private": true,
   "dependencies": {
     "@babel/core": "^7.6.4",
@@ -16,7 +16,7 @@
     "@types/react-router-dom": "^5.1.0",
     "@typescript-eslint/eslint-plugin": "^2.5.0",
     "@typescript-eslint/parser": "^2.5.0",
-    "antd": "^3.24.2",
+    "antd": "^3.24.3",
     "axios": "0.19.0",
     "babel-eslint": "^10.0.3",
     "babel-jest": "^24.9.0",
