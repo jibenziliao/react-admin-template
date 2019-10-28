@@ -1,87 +1,30 @@
 import React, { useState } from 'react'
-import { Layout, Menu, Icon, Row, Col } from 'antd'
-import { Router, Route, Link, withRouter, Switch, Redirect, RouteComponentProps } from 'react-router-dom'
+import { Layout, Icon, Row, Col } from 'antd'
+import { Router, Route, Switch, Redirect } from 'react-router-dom'
 import { createBrowserHistory } from 'history'
 import routes from './routers/Router'
 import LogoutButton from './components/logout/LogoutButton'
 import Login from './views/login/Login'
+import styles from './App.module.less'
 import './App.less'
 import { getStore } from './utils/util'
+import SideMenu from './components/menu/SideMenu'
+import BreadCrumb from './components/breadCrumb/BreadCrumb'
 
-const { Header, Sider, Content } = Layout
-
-const SubMenu = Menu.SubMenu
+const { Header, Content } = Layout
 
 const history = createBrowserHistory()
 
-/** 自定义侧边栏接口类型 */
-interface CustomSiderProps extends RouteComponentProps {
-  collapsed: boolean
+/** 子路由，但不在菜单中显示的页面，需要父级路由高亮 */
+const highLightMenuRouter: string[] = []
+
+/** 全局面包屑对应的url与名字集合 */
+const breadcrumbNameMap: { [key: string]: string } = {
+  '/': '首页',
+  '/logs': '日志管理',
+  '/logs/userLog': '用户日志',
+  '/user': '用户管理'
 }
-
-/** 自定义侧边栏 */
-const CustomSider = (props: CustomSiderProps) => {
-  /** 渲染二级菜单 */
-  const renderSubmenu = () => {
-    return routes.map(router => {
-      if (!router.hidden && router.hasMenu) {
-        if (router.children && router.children.length > 0) {
-          return (
-            <SubMenu
-              key={router.path}
-              title={
-                <span>
-                  <Icon type="reconciliation" />
-                  <span>{router.name}</span>
-                </span>
-              }
-            >
-              {router.children.map(item => {
-                return (
-                  <Menu.Item key={item.path}>
-                    <Link to={item.path}>
-                      <span>{item.name}</span>
-                    </Link>
-                  </Menu.Item>
-                )
-              })}
-            </SubMenu>
-          )
-        } else {
-          return (
-            <Menu.Item key={router.path}>
-              <Link to={router.path}>
-                <Icon type={router.iconType} />
-                <span>{router.name}</span>
-              </Link>
-            </Menu.Item>
-          )
-        }
-      } else {
-        return false
-      }
-    })
-  }
-
-  return (
-    <>
-      <Sider trigger={null} collapsible collapsed={props.collapsed}>
-        <div className="logo" />
-        <Menu
-          theme="dark"
-          mode="inline"
-          defaultSelectedKeys={[props.location.pathname]}
-          defaultOpenKeys={[`/${props.location.pathname.split('/')[1]}`]}
-        >
-          {renderSubmenu()}
-        </Menu>
-      </Sider>
-    </>
-  )
-}
-
-/** 左侧侧边栏 */
-const LeftSlider = withRouter(CustomSider)
 
 const HasMenu = () => {
   const [collapsed, setCollapsed] = useState(false)
@@ -110,7 +53,7 @@ const HasMenu = () => {
   if (token) {
     return (
       <>
-        <LeftSlider collapsed={collapsed} />
+        <SideMenu collapsed={collapsed} highLightRoutes={highLightMenuRouter} title="xx系统v1.0" />
         <Layout>
           <Header style={{ background: '#fff', padding: 0 }}>
             <Row>
@@ -122,16 +65,11 @@ const HasMenu = () => {
               </Col>
             </Row>
           </Header>
-          <Content
-            style={{
-              margin: '24px 16px',
-              padding: 24,
-              background: '#fff',
-              minHeight: 'initial'
-            }}
-          >
-            {renderContent()}
-          </Content>
+          <div className={styles.breadcrumbContainer}>
+            <BreadCrumb breadcrumbNameMap={breadcrumbNameMap} />
+          </div>
+          <Content className={styles.container}>{renderContent()}</Content>
+          <div className="globalCopyRight">Copyright&nbsp;&copy;&nbsp;畅云时讯&nbsp;2016-2019</div>
         </Layout>
       </>
     )
@@ -152,6 +90,7 @@ export const App = () => {
     <Router history={history}>
       <Layout className="page-layout">
         <Switch>
+          <Route path={'/logs'} exact={true} render={() => <Redirect to="/logs/userLog" />} />
           <Route path={'/login'} key={'/login'} component={Login} />
           <HasMenu />
         </Switch>
