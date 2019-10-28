@@ -270,6 +270,7 @@ const User = () => {
       <ActionBar buttons={buttons} />
       <Table
         bordered
+        className="globalSmallTable"
         columns={columns}
         dataSource={data}
         loading={loading}

@@ -21,7 +21,7 @@
   line-height: 64px;
   padding: 0 24px;
   cursor: pointer;
-  transition: color .3s;
+  transition: color 0.3s;
 }
 
 .trigger:hover {
@@ -30,7 +30,7 @@
 
 .logo {
   height: 32px;
-  background: rgba(255,255,255,.2);
+  background: rgba(255, 255, 255, 0.2);
   margin: 16px;
 }
 
@@ -62,4 +62,10 @@
   padding: 16px 0;
   text-align: center;
   margin-top: 16px;
+}
+
+.globalSmallTable {
+  .ant-table-small > .ant-table-content > .ant-table-body {
+    margin: 0;
+  }
 }
