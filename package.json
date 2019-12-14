@@ -1,6 +1,6 @@
 {
   "name": "ichangyun-fontend-template",
-  "version": "0.3.3",
+  "version": "0.4.0",
   "private": true,
   "dependencies": {
     "@loadable/component": "^5.11.0",
