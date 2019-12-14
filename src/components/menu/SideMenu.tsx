@@ -27,8 +27,7 @@ const CustomSider = (props: SideMenuProps) => {
                   <Icon type={router.iconType} />
                   <span>{router.name}</span>
                 </span>
-              }
-            >
+              }>
               {router.children.map(item => {
                 return (
                   <Menu.Item key={item.path}>
@@ -73,8 +72,7 @@ const CustomSider = (props: SideMenuProps) => {
         mode="inline"
         defaultSelectedKeys={[props.location.pathname]}
         selectedKeys={handleHighLightMenu(props.location.pathname)}
-        defaultOpenKeys={[`/${props.location.pathname.split('/')[1]}`]}
-      >
+        defaultOpenKeys={[`/${props.location.pathname.split('/')[1]}`]}>
         {renderSubmenu()}
       </Menu>
     </Sider>
