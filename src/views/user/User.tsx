@@ -103,8 +103,7 @@ const User = () => {
             title="确定要删除这条记录吗?"
             onConfirm={() => deleteUser(record.id)}
             okText="确定"
-            cancelText="取消"
-          >
+            cancelText="取消">
             <span className={`${styles.textButton} ${styles.deleteButton}`}>删除</span>
           </Popconfirm>
         </div>

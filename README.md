@@ -1,14 +1,6 @@
 # 基础模板文档
-  
-  ```bash
-  git clone git@192.168.0.149:WHProject/ichangyun-frontend-template.git
 
-  cd ichangyun-frontend-template
-
-  yarn
-
-  yarn start
-  ```
+可搭配 [cy-react-cli](https://github.com/jibenziliao/cy-react-cli)使用，cy-react-cli默认模板为此模板
 
 #### 1. <a href="#环境配置">环境配置</a>
 #### 2. <a href="#相关技术栈">相关技术栈</a>
@@ -22,7 +14,7 @@ __ __
 
 ## 环境配置
 
-  node > v11.0
+  node >= v12.0
 
   yarn
 
@@ -46,90 +38,62 @@ __ __
 
 ## 目录说明
 
-    |-- .env,                               // 环境变量配置
-    |-- .eslintignore,
-    |-- .eslintrc.js,
-    |-- .gitignore,
-    |-- README.md,
-    |-- config-overrides.js,
-    |-- package.json,
-    |-- tsconfig.json,
-    |-- tslint.json,
-    |-- yarn.lock,
-    |-- config,                             // webpack相关配置
-    |   |-- env.js,
-    |   |-- paths.js,
-    |   |-- webpack.config.js,
-    |   |-- webpackDevServer.config.js,
-    |   |-- jest,
-    |       |-- cssTransform.js,
-    |       |-- fileTransform.js,
-    |-- doc,                                // 文档
-    |   |-- images,
-    |       |-- 删除.png,
-    |       |-- 查看.png,
-    |       |-- 概览.png,
-    |       |-- 编辑.png,
-    |-- public,
-    |   |-- favicon.ico,
-    |   |-- index.html,
-    |   |-- manifest.json,
-    |-- scripts,
-    |   |-- build.js,
-    |   |-- start.js,
-    |   |-- test.js,
-    |-- src,
-      |-- App.less,
-      |-- App.test.tsx,
-      |-- App.tsx,
-      |-- index.css,
-      |-- index.tsx,
-      |-- react-app-env.d.ts,
-      |-- serviceWorker.ts,
-      |-- components,                       // 组件
-      |   |-- logout,
-      |   |   |-- LogoutButton.tsx,
-      |   |-- search,
-      |       |-- SearchComponent.module.less,
-      |       |-- SearchComponent.tsx,
-      |-- config,                           // 常量配置
-      |   |-- Constant.ts,
-      |-- mock,                             // mock配置
-      |   |-- mock.ts,
-      |   |-- data,
-      |       |-- loginUser.ts,
-      |       |-- user.ts,
-      |-- modal,                            // 实体接口
-      |   |-- loginUser.ts,
-      |   |-- page.ts,
-      |   |-- userForm.ts,
-      |-- routers,                          // 路由
-      |   |-- Router.ts,
-      |-- store,                            // 全局状态管理
-      |   |-- Actions.ts,
-      |   |-- Reducer.ts,
-      |   |-- Store.ts,
-      |-- theme,                            // 全局主题配置
-      |   |-- theme.less,
-      |-- utils,                            // 通用工具
-      |   |-- request.ts,
-      |   |-- util.ts,
-      |-- views,                            // 页面
-          |-- home,
-          |   |-- Home.tsx,
-          |-- login,
-          |   |-- Login.module.less,
-          |   |-- Login.tsx,
-          |-- logs,
-          |   |-- userLog,
-          |       |-- UserLog.tsx,
-          |-- user,
-              |-- User.module.less,
-              |-- User.tsx,
-              |-- UserModal.tsx,
-              |-- UserViewModal.module.less,
-              |-- UserViewModal.tsx,
-
+    .
+    ├── README.md
+    ├── config-overrides.js
+    ├── doc
+    ├── package.json
+    ├── public
+    ├── src
+    │   ├── App.less
+    │   ├── App.module.less
+    │   ├── App.test.tsx
+    │   ├── App.tsx
+    │   ├── assets
+    │   │   └── logo.png
+    │   ├── components
+    │   ├── config
+    │   │   └── Constant.ts
+    │   ├── index.css
+    │   ├── index.tsx
+    │   ├── mock
+    │   │   ├── data
+    │   │   │   ├── loginUser.ts
+    │   │   │   └── user.ts
+    │   │   └── mock.ts
+    │   ├── modal
+    │   │   ├── loginUser.ts
+    │   │   ├── page.ts
+    │   │   └── user.ts
+    │   ├── react-app-env.d.ts
+    │   ├── routers
+    │   │   └── Router.ts
+    │   ├── serviceWorker.ts
+    │   ├── store
+    │   │   ├── Actions.ts
+    │   │   ├── Reducer.ts
+    │   │   └── Store.ts
+    │   ├── theme
+    │   │   └── theme.less
+    │   ├── utils
+    │   │   ├── request.ts
+    │   │   └── util.ts
+    │   └── views
+    │       ├── home
+    │       │   └── Home.tsx
+    │       ├── login
+    │       │   ├── Login.module.less
+    │       │   └── Login.tsx
+    │       ├── logs
+    │       │   └── userLog
+    │       │       └── UserLog.tsx
+    │       └── user
+    │           ├── User.module.less
+    │           ├── User.tsx
+    │           ├── UserModal.tsx
+    │           └── UserViewModal.tsx
+    ├── tsconfig.json
+    └── yarn.lock
 
 ## mock说明
 
@@ -158,12 +122,7 @@ Mock.bootstrap()
 * [Auto Rename Tag](https://marketplace.visualstudio.com/items?itemName=formulahendry.auto-rename-tag#review-details)
 * [Auto Close Tag](https://marketplace.visualstudio.com/items?itemName=formulahendry.auto-close-tag#review-details)
 * [Bracket Pair Colorizer](https://marketplace.visualstudio.com/items?itemName=CoenraadS.bracket-pair-colorizer#review-details)
-* [Color Info](https://marketplace.visualstudio.com/items?itemName=bierner.color-info#review-details)
-* [CSS Peek](https://marketplace.visualstudio.com/items?itemName=pranaygp.vscode-css-peek#review-details)
-* [Document This](https://marketplace.visualstudio.com/items?itemName=joelday.docthis#review-details)
 * [EditorConfig for VS Code](https://marketplace.visualstudio.com/items?itemName=EditorConfig.EditorConfig#review-details)
-* [Git Blame](https://marketplace.visualstudio.com/items?itemName=waderyan.gitblame#review-details)
-* [Git History](https://marketplace.visualstudio.com/items?itemName=donjayamanne.githistory#review-details)
 * [gitignore](https://marketplace.visualstudio.com/items?itemName=codezombiech.gitignore#review-details)
 * [Guides](https://marketplace.visualstudio.com/items?itemName=spywhere.guides#review-details)
 * [IntelliSense for CSS class names in HTML](https://marketplace.visualstudio.com/items?itemName=Zignd.html-css-class-completion#review-details)
@@ -175,128 +134,103 @@ Mock.bootstrap()
 ```json
 // 将设置放入此文件中以覆盖默认设置
 {
-    "editor.fontSize": 14,
-    "workbench.statusBar.visible": true,
-    "workbench.activityBar.visible": false,
-    "editor.renderWhitespace": "boundary",
-    "window.zoomLevel": 0,
-    "editor.wordWrap": "bounded",
-    "editor.insertSpaces": true,
-    "editor.rulers": [
-        120
-    ],
-    "editor.scrollBeyondLastLine": true,
-    "editor.detectIndentation": false,
-    "editor.tabSize": 2,
-    "editor.wordWrapColumn": 120,
-    "editor.minimap.enabled": true,
-    "search.exclude": {
-        "**/dist": true
-    },
-    "editor.snippetSuggestions": "top",
-    "window.openFilesInNewWindow": "off",
-    "eslint.autoFixOnSave": true,
-    "html.format.indentInnerHtml": true,
-    "docthis.includeDescriptionTag": true,
-    "autoprefixer.findExternalAutoprefixer": true,
-    "path-intellisense.extensionOnImport": true,
-    "editor.renderIndentGuides": false,
-    "docthis.enableHungarianNotationEvaluation": true,
-    "docthis.inferTypesFromNames": true,
-    "files.associations": {
-      "*.vue": "vue",
-      "*.wpy": "vue",
-      "*.tsx": "typescriptreact"
-    },
-    "typescript.check.npmIsInstalled": false,
-    "eslint.validate": [
-        "javascript",
-        "javascriptreact",
-        "html",
-        "vue",
-        {
-            "language": "html",
-            "autoFix": true
-        },
-        {
-            "language": "vue",
-            "autoFix": true
-        },
-        {
-            "language": "javascript",
-            "autoFix": true
-        }
-    ],
-    "auto-rename-tag.activationOnLanguage": [
-        "*",
-        ".vue"
-    ],
-    "html.format.endWithNewline": true,
-    "html.format.indentHandlebars": true,
-    "javascript.format.insertSpaceAfterConstructor": true,
-    "javascript.format.insertSpaceBeforeFunctionParenthesis": true,
-    "typescript.format.insertSpaceAfterConstructor": true,
-    "editor.acceptSuggestionOnCommitCharacter": false,
-    "editor.minimap.showSlider": "always",
-    "typescript.format.insertSpaceBeforeFunctionParenthesis": true,
-    "javascript.implicitProjectConfig.checkJs": true,
-    "javascript.validate.enable": false,
-    "gitlens.advanced.messages": {
-        "suppressCommitHasNoPreviousCommitWarning": false,
-        "suppressCommitNotFoundWarning": false,
-        "suppressFileNotUnderSourceControlWarning": false,
-        "suppressGitVersionWarning": false,
-        "suppressLineUncommittedWarning": false,
-        "suppressNoRepositoryWarning": false,
-        "suppressResultsExplorerNotice": true,
-        "suppressShowKeyBindingsNotice": true
-    },
-    "gitlens.keymap": "alternate",
-    "dart.flutterSdkPath": "/Users/keyangyang/projects/flutter",
-    "breadcrumbs.enabled": true,
-    "scm.alwaysShowProviders": true,
-    "vetur.format.defaultFormatterOptions": {
-        "js-beautify-html": {
-            "wrap_attributes": "force-aligned"
-        }
-    },
-    "extensions.autoUpdate": true,
-    "search.collapseResults": "alwaysCollapse",
-    "gitlens.views.repositories.files.layout": "auto",
-    "gitlens.views.fileHistory.enabled": true,
-    "gitlens.views.lineHistory.enabled": true,
-    "eslint.alwaysShowStatus": true,
-    "[typescriptreact]": {
-      "editor.defaultFormatter": "esbenp.prettier-vscode"
-    },
-    "javascript.format.insertSpaceAfterOpeningAndBeforeClosingNonemptyBraces": false,
-    "typescript.updateImportsOnFileMove.enabled": "always",
-    "editor.suggestSelection": "first",
-    "prettier.semi": false,
-    "prettier.tslintIntegration": true,
-    "bookmarks.useWorkaroundForFormatters": true,
-    "[scss]": {
-      "editor.defaultFormatter": "esbenp.prettier-vscode"
-    },
-    "[typescript]": {
-      "editor.defaultFormatter": "esbenp.prettier-vscode"
-    },
-    "[css]": {
-      "editor.defaultFormatter": "esbenp.prettier-vscode"
-    },
-    "[less]": {
-      "editor.defaultFormatter": "esbenp.prettier-vscode"
-    },
-    "prettier.singleQuote": true,
-    "prettier.jsxBracketSameLine": true,
-    "[jsonc]": {
-      "editor.defaultFormatter": "esbenp.prettier-vscode"
-    },
-    "typescript.reportStyleChecksAsWarnings": false,
-    "tslint.nodePath": "./node_modules/tslint",
-    "[json]": {
-      "editor.defaultFormatter": "esbenp.prettier-vscode"
-    }
+  "editor.fontSize": 14,
+  "workbench.activityBar.visible": false,
+  "editor.renderWhitespace": "boundary",
+  "window.zoomLevel": 0,
+  "editor.wordWrap": "bounded",
+  "editor.insertSpaces": true,
+  "editor.rulers": [120],
+  "editor.scrollBeyondLastLine": true,
+  "editor.detectIndentation": false,
+  "editor.tabSize": 2,
+  "editor.wordWrapColumn": 120,
+  "editor.minimap.enabled": true,
+  "search.exclude": {
+    "**/dist": true
+  },
+  "editor.snippetSuggestions": "top",
+  "window.openFilesInNewWindow": "off",
+  "html.format.indentInnerHtml": true,
+  "autoprefixer.findExternalAutoprefixer": true,
+  "path-intellisense.extensionOnImport": true,
+  "editor.renderIndentGuides": false,
+  "files.associations": {
+    "*.vue": "vue",
+    "*.wpy": "vue",
+    "*.tsx": "typescriptreact"
+  },
+  "typescript.check.npmIsInstalled": false,
+  "auto-rename-tag.activationOnLanguage": ["*", ".vue"],
+  "html.format.endWithNewline": true,
+  "html.format.indentHandlebars": true,
+  "javascript.format.insertSpaceAfterConstructor": true,
+  "javascript.format.insertSpaceBeforeFunctionParenthesis": true,
+  "typescript.format.insertSpaceAfterConstructor": true,
+  "editor.acceptSuggestionOnCommitCharacter": false,
+  "editor.minimap.showSlider": "always",
+  "typescript.format.insertSpaceBeforeFunctionParenthesis": true,
+  "javascript.implicitProjectConfig.checkJs": true,
+  "javascript.validate.enable": false,
+  "gitlens.advanced.messages": {
+    "suppressCommitHasNoPreviousCommitWarning": false,
+    "suppressCommitNotFoundWarning": false,
+    "suppressFileNotUnderSourceControlWarning": false,
+    "suppressGitVersionWarning": false,
+    "suppressLineUncommittedWarning": false,
+    "suppressNoRepositoryWarning": false,
+    "suppressResultsExplorerNotice": true,
+    "suppressShowKeyBindingsNotice": true
+  },
+  "breadcrumbs.enabled": true,
+  "scm.alwaysShowProviders": true,
+  "extensions.autoUpdate": true,
+  "gitlens.views.repositories.files.layout": "auto",
+  "gitlens.views.fileHistory.enabled": true,
+  "gitlens.views.lineHistory.enabled": true,
+  "eslint.alwaysShowStatus": true,
+  "[typescriptreact]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "javascript.format.insertSpaceAfterOpeningAndBeforeClosingNonemptyBraces": false,
+  "typescript.updateImportsOnFileMove.enabled": "always",
+  "editor.suggestSelection": "first",
+  "bookmarks.useWorkaroundForFormatters": true,
+  "[scss]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[typescript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[css]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[less]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[jsonc]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "typescript.reportStyleChecksAsWarnings": false,
+  "tslint.nodePath": "./node_modules/tslint",
+  "[json]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "workbench.iconTheme": "vscode-icons",
+  "[javascript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[html]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "workbench.colorTheme": "Monokai",
+  "search.showLineNumbers": true,
+  "gitlens.defaultDateStyle": "absolute",
+  "todo-tree.highlights.enabled": true,
+  "javascript.updateImportsOnFileMove.enabled": "never",
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true
+  }
 }
 ```
 

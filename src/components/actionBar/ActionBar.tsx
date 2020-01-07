@@ -27,7 +27,7 @@ const ActionBar = (props: Props) => {
       )
     })
   }
-  return <div className={styles.buttonOptions}>{renderButtons()}</div>
+  return <div className={styles.ButtonOptions}>{renderButtons()}</div>
 }
 
 export { ActionBar }

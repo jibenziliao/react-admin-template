@@ -42,7 +42,7 @@ const FormComponent = (props: SearchProps) => {
           <Button type="primary" htmlType="submit">
             查询
           </Button>
-          <Button className={styles.resetButotn} htmlType="reset" onClick={handleReset}>
+          <Button className={styles.ResetButotn} htmlType="reset" onClick={handleReset}>
             重置
           </Button>
         </Form.Item>
