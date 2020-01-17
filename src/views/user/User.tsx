@@ -9,7 +9,7 @@ import UserModal from './UserModal'
 import { User as UserProps, UserTable } from '../../modal/user'
 import { Page } from '../../modal/page'
 import styles from './User.module.less'
-import { SearchComponent, Params } from '../../components/search/SearchComponent'
+import { SearchComponent, Params, SelectProps } from '../../components/search/SearchComponent'
 import UserViewModal from './UserViewModal'
 import { ActionBar, ButtonProps } from '../../components/actionBar/ActionBar'
 
@@ -22,6 +22,10 @@ interface PageParams {
   size: number
   total: number
   name?: string
+}
+
+const exampleOptions: SelectProps = {
+  keywords: [{ field: 'name', placeholder: '请输入姓名' }]
 }
 
 /** 默认用户表单 */
@@ -265,7 +269,7 @@ const User = () => {
 
   return (
     <>
-      <SearchComponent onSearch={search} reset={resetList} />
+      <SearchComponent options={exampleOptions} onSearch={search} reset={resetList} />
       <ActionBar buttons={buttons} />
       <Table
         bordered
