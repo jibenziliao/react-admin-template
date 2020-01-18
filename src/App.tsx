@@ -21,6 +21,8 @@ const highLightMenuRouter: string[] = []
 /** 全局面包屑对应的url与名字集合 */
 const breadcrumbNameMap: { [key: string]: string } = {
   '/': '首页',
+  '/example': '组件示例',
+  '/example/search': '搜索',
   '/logs': '日志管理',
   '/logs/userLog': '用户日志',
   '/user': '用户管理'
@@ -69,7 +71,7 @@ const HasMenu = () => {
             <BreadCrumb breadcrumbNameMap={breadcrumbNameMap} />
           </div>
           <Content className={styles.container}>{renderContent()}</Content>
-          <div className="globalCopyRight">Copyright&nbsp;&copy;&nbsp;畅云时讯&nbsp;2016-2019</div>
+          <div className="globalCopyRight">Copyright&nbsp;&copy;&nbsp;畅云时讯&nbsp;2016-2020</div>
         </Layout>
       </>
     )
@@ -90,6 +92,7 @@ export const App = () => {
     <Router history={history}>
       <Layout className="page-layout">
         <Switch>
+          <Route path={'/example'} exact={true} render={() => <Redirect to="/example/search" />} />
           <Route path={'/logs'} exact={true} render={() => <Redirect to="/logs/userLog" />} />
           <Route path={'/login'} key={'/login'} component={Login} />
           <HasMenu />

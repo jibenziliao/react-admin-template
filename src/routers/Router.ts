@@ -3,6 +3,7 @@ import loadable from '@loadable/component'
 const Home = loadable(() => import('../views/home/Home'))
 const User = loadable(() => import('../views/user/User'))
 const UserLog = loadable(() => import('../views/logs/userLog/UserLog'))
+const SearchExample = loadable(() => import('../views/examples/search/SearchExample'))
 
 const routes = [
   {
@@ -13,6 +14,24 @@ const routes = [
     name: '首页',
     hasMenu: true,
     hidden: false
+  },
+  {
+    component: Home,
+    path: '/example',
+    exact: true,
+    iconType: 'dashboard',
+    name: '组件示例',
+    hasMenu: true,
+    hidden: false,
+    children: [
+      {
+        component: SearchExample,
+        path: '/example/search',
+        name: '搜索',
+        hasMenu: true,
+        hidden: false
+      }
+    ]
   },
   {
     component: UserLog,
